@@ -20,7 +20,7 @@ function drawLineColors() {
 
   data.addRows([
     {% for log in project.log_set.all %}
-        [(new Date("{{ log.created_at.isoformat }}")), 1],
+        [(new Date("{{ log.created_at.isoformat }}")), {% if log.is_up %}1{% else %}null{% endif %}],
     {% endfor %}
   ]);
 
