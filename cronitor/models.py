@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Project(models.Model):
@@ -12,7 +13,7 @@ class Project(models.Model):
 
 class Log(models.Model):
     project = models.ForeignKey('Project')
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
     ip_address = models.GenericIPAddressField(default='127.0.0.1')
     is_up = models.BooleanField(default=True)
     message = models.TextField(blank=True, null=True)
