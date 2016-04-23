@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>{{ project.name }}</h1>
-<h3>Last seen at: {{ project.log_set.last.created_at }}</h3>
+<h3>Last seen at: {{ project.log_set.first.created_at }}</h3>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <div id="chart_div"></div>
