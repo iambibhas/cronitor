@@ -18,7 +18,7 @@ class CreateLogView(View):
             print(request.META.get('REMOTE_ADDR', ''))
             Log.objects.create(
                 project=project,
-                ip_address=request.META.get('REMOTE_ADDR', '')
+                ip_address=request.META.get('HTTP_X_REAL_IP', '')
             )
             return HttpResponse('OK')
         except Exception as e:
