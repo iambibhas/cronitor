@@ -15,6 +15,7 @@ class CreateLogView(View):
                 uid=uid, auth_token=auth_token
             )
 
+            print(request.META.get('REMOTE_ADDR', ''))
             Log.objects.create(
                 project=project,
                 ip_address=request.META.get('REMOTE_ADDR', '')

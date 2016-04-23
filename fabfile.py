@@ -32,8 +32,9 @@ def migrate_all():
             run('python manage.py migrate')
 
 
-def nginx_reload():
-    sudo('service nginx reload')
+def supervisor_reload():
+    sudo('supervisorctl restart cronitor')
+    sudo('service nginx restart')
 
 
 def collectstatic():
@@ -42,9 +43,9 @@ def collectstatic():
             sudo('python manage.py collectstatic --noinput', user='bibhas')
 
 
-def deloy():
+def deploy():
     git_pull(env.git_branch)
     pip_install_packages()
     migrate_all()
     collectstatic()
-    nginx_reload()
+    supervisor_reload()
