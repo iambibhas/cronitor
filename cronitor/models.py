@@ -13,6 +13,8 @@ class Project(models.Model):
 class Log(models.Model):
     project = models.ForeignKey('Project')
     created_at = models.DateTimeField(auto_now_add=True)
+    ip_address = models.GenericIPAddressField()
+    message = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return '{} at {}'.format(self.project, self.created_at)
+        return '{} at {} from {}'.format(self.project, self.created_at, self.ip_address)
