@@ -16,7 +16,7 @@ class CreateLogView(View):
                 uid=uid, auth_token=auth_token
             )
 
-            last_log = Log.objects.last()
+            last_log = Log.objects.first()
 
             log = Log.objects.create(
                 project=project,
