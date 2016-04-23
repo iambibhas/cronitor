@@ -2,6 +2,7 @@ from django.views.generic.base import View
 from django.views.generic.detail import DetailView
 from django.http import HttpResponse
 from cronitor.models import Project, Log
+import datetime
 
 
 class CreateLogView(View):
@@ -25,9 +26,8 @@ class CreateLogView(View):
 
             tdelta = log.created_at - last_log.created_at
 
-            if tdelta.seconds > 90:
-                import datetime
-                mid_log = Log.objects.create(
+            if tdelta.seconds > project.interval * 1.2:
+                Log.objects.create(
                     project=project,
                     ip_address=request.META.get('HTTP_X_REAL_IP', ''),
                     is_up=False,

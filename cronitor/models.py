@@ -7,6 +7,7 @@ class Project(models.Model):
     uid = models.SlugField(db_index=True)
     name = models.TextField()
     auth_token = models.TextField(unique=True, db_index=True)
+    interval = models.IntegerField("Interval in minutes", default=1)
 
     def __str__(self):
         return self.name
