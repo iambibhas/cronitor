@@ -16,11 +16,23 @@ class CreateLogView(View):
                 uid=uid, auth_token=auth_token
             )
 
-            print(request.META.get('REMOTE_ADDR', ''))
-            Log.objects.create(
+            last_log = Log.objects.last()
+
+            log = Log.objects.create(
                 project=project,
                 ip_address=request.META.get('HTTP_X_REAL_IP', '')
             )
+
+            tdelta = log.created_at - last_log.created_at
+
+            if tdelta.seconds > 90:
+                import datetime
+                mid_log = Log.objects.create(
+                    project=project,
+                    ip_address=request.META.get('HTTP_X_REAL_IP', ''),
+                    is_up=False,
+                    created_at=last_log.created_at + datetime.timedelta(seconds=(tdelta.seconds / 2))
+                )
             return HttpResponse('OK')
         except Exception as e:
             return HttpResponse('NOTOK: {}'.format(e))
