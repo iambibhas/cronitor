@@ -16,11 +16,13 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.decorators.csrf import csrf_exempt
-from cronitor.views import CreateLogView
+from cronitor.views import CreateLogView, ProjectDetailsView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^log/(?P<uid>[a-zA-Z0-9\-]+)/$',
         csrf_exempt(CreateLogView.as_view()), name='create-log'),
+    url(r'^project/(?P<uid>[a-zA-Z0-9\-]+)/$',
+        ProjectDetailsView.as_view(), name='project-details'),
 ]

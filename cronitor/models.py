@@ -2,9 +2,9 @@ from django.db import models
 
 
 class Project(models.Model):
-    uid = models.SlugField()
+    uid = models.SlugField(db_index=True)
     name = models.TextField()
-    auth_token = models.TextField(unique=True)
+    auth_token = models.TextField(unique=True, db_index=True)
 
     def __str__(self):
         return self.name

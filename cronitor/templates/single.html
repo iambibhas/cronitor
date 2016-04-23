@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ project.name }}</h1>
+<h3>Last seet at: {{ project.log_set.last.created_at }}</h3>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<div id="chart_div"></div>
+{% endblock content %}
+
+{% block endbody %}
+<script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawLineColors);
+
+function drawLineColors() {
+  var data = new google.visualization.DataTable();
+  data.addColumn('datetime', 'TIME');
+  data.addColumn('number', 'UP');
+
+  data.addRows([
+    {% for log in project.log_set.all %}
+        [(new Date("{{ log.created_at.isoformat }}")), 1],
+    {% endfor %}
+  ]);
+
+  var options = {
+    hAxis: {
+      title: 'Time'
+    },
+    vAxis: {
+      title: 'Popularity'
+    },
+    colors: ['#a52714', '#097138']
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+  chart.draw(data, options);
+}
+</script>
+{% endblock endbody %}

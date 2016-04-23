@@ -1,4 +1,5 @@
 from django.views.generic.base import View
+from django.views.generic.detail import DetailView
 from django.http import HttpResponse
 from cronitor.models import Project, Log
 
@@ -23,3 +24,18 @@ class CreateLogView(View):
             return HttpResponse('OK')
         except Exception as e:
             return HttpResponse('NOTOK: {}'.format(e))
+
+
+class ProjectDetailsView(DetailView):
+    model = Project
+    template_name = 'single.html'
+    context_object_name = 'project'
+
+    def get_object(self, queryset=None):
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        uid = self.kwargs.get('uid')
+
+        project = Project.objects.get(uid=uid)
+        return project
