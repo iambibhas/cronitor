@@ -15,7 +15,10 @@ class CreateLogView(View):
                 uid=uid, auth_token=auth_token
             )
 
-            Log.objects.create(project=project)
+            Log.objects.create(
+                project=project,
+                ip_address=request.META.get('REMOTE_ADDR', '')
+            )
             return HttpResponse('OK')
         except Exception as e:
             return HttpResponse('NOTOK: {}'.format(e))
