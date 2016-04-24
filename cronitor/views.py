@@ -26,7 +26,7 @@ class CreateLogView(View):
 
             tdelta = log.created_at - last_log.created_at
 
-            if tdelta.seconds > project.interval * 1.2:
+            if tdelta.seconds > project.interval * 60 * 1.2:
                 Log.objects.create(
                     project=project,
                     ip_address=request.META.get('HTTP_X_REAL_IP', ''),
