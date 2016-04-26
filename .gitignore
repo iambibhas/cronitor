@@ -65,4 +65,4 @@ target/
 *.sqlite3
 
 # static files
-assets/
+assets/static/
