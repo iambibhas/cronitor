@@ -33,8 +33,8 @@ def migrate_all():
 
 
 def supervisor_reload():
-    sudo('supervisorctl restart cronitor', user='bibhas')
-    sudo('service nginx restart', user='bibhas')
+    sudo('supervisorctl restart cronitor')
+    sudo('service nginx restart')
 
 
 def collectstatic():
