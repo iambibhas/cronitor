@@ -20,7 +20,7 @@ class Project(models.Model):
             previous_log = offline_log.get_previous_by_created_at()
             next_log = offline_log.get_next_by_created_at()
             difference_seconds = next_log.created_at - previous_log.created_at
-            total_offline_seconds += difference_seconds.second
+            total_offline_seconds += difference_seconds.seconds
         return total_offline_seconds
 
     def get_history(self):
